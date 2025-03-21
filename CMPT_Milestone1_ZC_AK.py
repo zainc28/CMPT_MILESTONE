@@ -3,7 +3,6 @@
 
 
 '''
-<<<<<<< HEAD
 Planning
 
 Objectives of the project:
@@ -13,9 +12,31 @@ store the information in appropriate data structures.
         3. Serialize the data structures using the pickle module for quick loading
 
     testing testing
-=======
-hello
->>>>>>> 156b98da313c17ff7f09915b6c734aacf236084f
+
+    The main() function starts a textbased interface, which ask the user
+to select a menu option.
+• Not all options are implemented for
+Milestone 1.
+• Split menu tasks into appropriate
+helper functions.
+• Ensure that the program handles
+invalid input. 
+
+
+You have been given three data files:
+– routes.txt
+• route_id (col 0), e.g. '008'
+• route_name (col 3), e.g. "Abbottsfield - Downtown - University".
+– trips.txt
+• route_id (col 0)
+• shape_id (col 6), multiple for each route_id,
+– e.g. 008-210-South, 008-211-North
+– shapes.txt
+• shape_id (col 0)
+• latitude (col 1), longitude (col 2) locations. Many for each shape_id
+• Other data columns can be ignored. 
+
+
 '''
 
 def main():
