@@ -3,6 +3,7 @@
 
 
 '''
+<<<<<<< HEAD
 Planning
 
 Objectives of the project:
@@ -12,6 +13,9 @@ store the information in appropriate data structures.
         3. Serialize the data structures using the pickle module for quick loading
 
     testing testing
+=======
+hello
+>>>>>>> 156b98da313c17ff7f09915b6c734aacf236084f
 '''
 
 def main():
