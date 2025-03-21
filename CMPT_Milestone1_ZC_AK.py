@@ -3,7 +3,15 @@
 
 
 '''
+Planning
 
+Objectives of the project:
+        1. Read three of the ETS files (routes.txt, trips.txt and shapes.txt), and
+store the information in appropriate data structures.
+        2. Develop a text interface to access and search the data.
+        3. Serialize the data structures using the pickle module for quick loading
+
+    testing testing
 '''
 
 def main():
