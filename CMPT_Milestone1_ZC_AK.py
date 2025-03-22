@@ -51,12 +51,28 @@ def main():
 (7) Save routes and shapes in a pickle
 (8) Load routes and shapes from a pickle
 (9) Reserved for future use
-(0) Quit''')
+(0) Quit\n''')
 
     if menu_input == '1':
         pass
-
-
+    elif menu_input == '2':
+        pass
+    elif menu_input == '3':
+        print('Option 3 reserved for Milestone 2')
+    elif menu_input == '4':
+        pass
+    elif menu_input == '5':
+        pass
+    elif menu_input == '6':
+        print('Option 6 reserved for Milestone 2')
+    elif menu_input == '7':
+        pass
+    elif menu_input == '8':
+        pass
+    elif menu_input == '9':
+        print('Option 9 reserved for Milestone 2')
+    elif menu_input == '0':
+        quit()
 
 
 main()
@@ -79,6 +95,15 @@ the set of shape_ids associated with a route_id.
 "008-212-North"
 •
 "008-213-North"
+
+so basically retreive respective data from each file and store it in a dictionary or a list
+
+Create a data structure storing route id route nam and set of shape ods all together 
+
+1. read thr routes text file and retrieve rout namee and create a dictionary 
+2. read the trips file and then return route id and shape id put in a dictionary EXCEPT IMPLEMTN PART 3
+3. put shape id into a set to remove duplicates so we only end up with unique sets 
+
     """
     pass
 
@@ -98,5 +123,14 @@ in the shapes.txt file.
 • Menu option 9: The user provides a source and/or destination. Search for these
 in the route_name for each route. If a match is found, plot the longest shape for
 that route_id on the map.
+
+
+read the shapes.txt file 
+store 
+shape ids, shape pt lat and shape pt lon in a (single) appropriate data structure 
 """
+
+
+    
+
     pass
