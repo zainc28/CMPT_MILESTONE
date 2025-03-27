@@ -4,6 +4,11 @@
 
 '''
 Planning
+Milestone #1 Due Date: March 30th, 11:59 PM
+This milestone focuses on:
+1. Loading two of the ETS files (trips.txt and shapes.txt) into appropriate data structures
+2. Developing a text interface to access and search these data structures
+3. Serializing these data structures using the pickle module for quick loading
 
 Objectives of the project:
         1. Read three of the ETS files (routes.txt, trips.txt and shapes.txt), and
@@ -11,35 +16,36 @@ store the information in appropriate data structures.
         2. Develop a text interface to access and search the data.
         3. Serialize the data structures using the pickle module for quick loading
 
-    testing testing
 
-    The main() function starts a textbased interface, which ask the user
-to select a menu option.
-• Not all options are implemented for
-Milestone 1.
-• Split menu tasks into appropriate
-helper functions.
-• Ensure that the program handles
-invalid input. 
-
-
-You have been given three data files:
+three data files:
 – routes.txt
 • route_id (col 0), e.g. '008'
 • route_name (col 3), e.g. "Abbottsfield - Downtown - University".
+
 – trips.txt
 • route_id (col 0)
 • shape_id (col 6), multiple for each route_id,
 – e.g. 008-210-South, 008-211-North
+
 – shapes.txt
 • shape_id (col 0)
 • latitude (col 1), longitude (col 2) locations. Many for each shape_id
 • Other data columns can be ignored. 
 
 
+During implementation, you must deploy appropriate strategies learned in lecture that prohibit your program from
+crashing due to:
+• Invalid user input
+• Performing an action before a file is loaded
+• Attempting to open a file for reading or writing
+• Closing the interactive map prematurely
+Necessary safeguards should be in place.
 '''
 
 def main():
+    route_data = {}
+    shapes_data = {}
+
     menu_input = input('''Edmonton Transit Systems
 --------------------------------
 (1) Load route data 
@@ -54,7 +60,7 @@ def main():
 (0) Quit\n''')
 
     if menu_input == '1':
-        pass
+        route_data = load_route_data()
     elif menu_input == '2':
         pass
     elif menu_input == '3':
@@ -75,62 +81,78 @@ def main():
         quit()
 
 
-main()
-
-
-
-def load_route_data():
+def load_route_data() -> dict:
     """
-    The data structure must store route_id, route_name and shape_id
-information for each route. It will be used to find the route_name and
-the set of shape_ids associated with a route_id.
-• For route 8, this information consists of the following data:
-– route_id: "008"
-– route_name: "Abbottsfield - Downtown - University"
-– shape_id:
-•
-"008-210-South"
-• "008-211-North"
-•
-"008-212-North"
-•
-"008-213-North"
+    purpose: Create a data structure retrieving and storing route id, 
+            route name and shape ids(without duplicates) all together 
+    parameters: 
+    returns: 
 
-so basically retreive respective data from each file and store it in a dictionary or a list
-
-Create a data structure storing route id route nam and set of shape ods all together 
-
-1. read thr routes text file and retrieve rout namee and create a dictionary 
-2. read the trips file and then return route id and shape id put in a dictionary EXCEPT IMPLEMTN PART 3
-3. put shape id into a set to remove duplicates so we only end up with unique sets 
-
+1. recieve the filename from the user with error handling 
+2. read the routes text file and retrieve route name and create a dictionary 
+3. read the trips file and then return route id and shape id put in a dictionary 
+4. put shape id into a set to remove duplicates so we only end up with unique sets 
     """
-    pass
+    while True:
+        filename_input = input("Enter trips filename (Press enter for default 'data/trips.txt'): ").strip()
+        trips_file = filename_input if filename_input else 'data/trips.txt'
+        
+        try:
+            open(trips_file).close()  
+            break
+        except FileNotFoundError:
+            print(f"IOError: Couldn't open non_existent_file")
+        except Exception as e:
+            print(f"IOError: Couldn't open non_existent_file")
+
+    routes = {} 
+
+    #ASK THE PROF IS THIS PART IS SUPPOSED TO BE HARDCODED????
+    try:
+        with open('data/routes.txt', 'r') as file:
+            next(file)
+            for line in file:
+                data = line.strip().split(',')
+                if len(data) > 3:  
+                    route_id = data[0].strip()
+                    route_name = data[3].strip()
+                    routes[route_id] = [route_name, set()]
+    except FileNotFoundError:
+        print('Routes file not found')
+        return {}
+    
+    try:
+        with open(trips_file, 'r') as file:
+            next(file)
+            for line in file:
+                data = line.strip().split(',')
+                if len(data) > 6:  
+                    route_id = data[0]
+                    shape_id = data[6]
+                    if route_id in routes:
+                        routes[route_id][1].add(shape_id)
+    except FileNotFoundError:
+        print('File not found')
+        return {}
+    print(f"Data from {trips_file} loaded")
+    return routes
+        
 
 def load_shapes_data():
-    """
-    Read the shapes.txt file and store the data in an appropriate data structure (shapes).
-– The data structure maps each shape_id to its shape. It will be used to find the
-length of a shape, and to plot a shape.
-– A shape is a sequence of (latitude, longitude) points that identify the path taken
-by a bus.
-– Routes will be drawn by drawing short lines between all adjacent pairs of shape
-locations. Make sure to maintain the order of the lat/lon locations as they appear
-in the shapes.txt file.
-– This data structure will be used for the following tasks:
-• Menu option 5: Print coordinates for a shape_id
-• Menu option 6: Find the id of the longest shape for a route_id
-• Menu option 9: The user provides a source and/or destination. Search for these
-in the route_name for each route. If a match is found, plot the longest shape for
-that route_id on the map.
-
-
-read the shapes.txt file 
-store 
-shape ids, shape pt lat and shape pt lon in a (single) appropriate data structure 
-"""
-
-
-    
-
     pass
+
+def shape_for_route():
+    #if file isnt loaded from option 1 then print
+    route_data = load_route_data()
+
+    if not filename_input:
+        print("Route data hasn 't been loaded yet")
+    else:
+        route_id = input("Enter route: ").strip()
+        if route_id in route_data:
+            print(f'''Shapes ids for route [{route_name} 
+    {route_data[route_id][1]}]''')
+        else:
+            print(f"** NOT FOUND **")  
+
+main()
